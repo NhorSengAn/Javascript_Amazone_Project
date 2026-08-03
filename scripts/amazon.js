@@ -45,11 +45,35 @@ products.forEach((product) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">Add to Cart</button>
+          <button class="add-to-cart-button button-primary js-button-add-to-cart" data-product-id ="${product.id}">Add to Cart</button>
+
         </div>
     `;
 });
 
-console.log(productsHTML);
+// console.log(productsHTML);
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
+document.querySelectorAll(".js-button-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log(cart.length);
+    let matchingItem;
+    const productId = button.dataset.productId;
+    cart.forEach((item) => {
+      if (productId === item.productId) {
+        matchingItem = item; //in a scop matchingItem when we find the item.productName in product we will save that data in matchingItem
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem += 1; // in this case we if we found out the producnt we will increase one
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1,
+      });
+    }
+    console.log(cart);
+  });
+});
