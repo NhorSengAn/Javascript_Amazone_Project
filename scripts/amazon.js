@@ -57,23 +57,29 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 document.querySelectorAll(".js-button-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(cart.length);
     let matchingItem;
     const productId = button.dataset.productId;
+
     cart.forEach((item) => {
       if (productId === item.productId) {
-        matchingItem = item; //in a scop matchingItem when we find the item.productName in product we will save that data in matchingItem
+        matchingItem = item; // save reference to the found object
       }
     });
 
     if (matchingItem) {
-      matchingItem += 1; // in this case we if we found out the producnt we will increase one
+      matchingItem.quantity += 1; // update quantity on that object
     } else {
       cart.push({
         productId: productId,
         quantity: 1,
       });
     }
-    console.log(cart);
+
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   });
 });
