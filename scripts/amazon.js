@@ -1,3 +1,5 @@
+import { cart } from "../data/cart.js";
+
 let productsHTML = "";
 products.forEach((product) => {
   productsHTML += `
@@ -24,7 +26,7 @@ products.forEach((product) => {
           <div class="product-price">$${(product.priceCents / 100).toFixed(2)}</div>
 
           <div class="product-quantity-container">
-            <select class="js-quantity-seclector-${product.id}">
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -78,7 +80,7 @@ document.querySelectorAll(".js-button-add-to-cart").forEach((button) => {
       }
     });
     const quantitySector = document.querySelector(
-      `.js-quantity-seclector-${productId}`,
+      `.js-quantity-selector-${productId}`,
     );
     const quantity = Number(quantitySector.value);
 
@@ -115,6 +117,6 @@ document.querySelectorAll(".js-button-add-to-cart").forEach((button) => {
       addedMessage.classList.remove("added-to-cart-visible");
     }, 1000);
 
-    addedMessageTimeouts[productId] = productId;
+    addedMessageTimeouts[productId] = timeoutId;
   });
 });
