@@ -74,8 +74,8 @@ function updateCartQuantity(button) {
   const { productId } = button.dataset;
   const addedMessageTimeouts = {};
   let cartQuantity = 0;
-  cart.forEach((cartitem) => {
-    cartQuantity += cartitem.quantity;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
   });
 
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
