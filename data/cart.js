@@ -35,12 +35,5 @@ export function addToCatt(button) {
 }
 
 export function removeFromCart(productId) {
-  const newCart = [];
-  cart.forEach((cartItem) => {
-    if (cartItem.productId !== productId) {
-      newCart.push(cartItem);
-    }
-  });
-
-  cart = newCart;
+  cart = cart.filter((cartItem) => cartItem.productId !== productId);
 }
