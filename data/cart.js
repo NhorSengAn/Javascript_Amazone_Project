@@ -1,4 +1,4 @@
-export const cart = [
+export let cart = [
   {
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity: 1,
@@ -8,6 +8,7 @@ export const cart = [
     quantity: 1,
   },
 ];
+
 export function addToCatt(button) {
   const { productId } = button.dataset;
 
@@ -23,7 +24,6 @@ export function addToCatt(button) {
   );
 
   const quantity = Number(quantitySector.value);
-
   if (matchingItem) {
     matchingItem.quantity += quantity; // update quantity on that object
   } else {
@@ -32,4 +32,10 @@ export function addToCatt(button) {
       quantity,
     });
   }
+}
+
+export function removeFromCart(productId) {
+  cart = cart.filter((cartItem) => {
+    return cartItem.productId !== productId;
+  });
 }
