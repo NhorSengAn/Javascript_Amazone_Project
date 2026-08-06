@@ -1,4 +1,4 @@
-import { cart, addToCatt } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productsHTML = "";
@@ -91,7 +91,7 @@ function updateCartQuantity(button) {
 
   const timeoutId = setTimeout(() => {
     addedMessage.classList.remove("added-to-cart-visible");
-  }, 1000);
+  }, 3000);
 
   addedMessageTimeouts[productId] = timeoutId;
 }
@@ -99,7 +99,7 @@ function updateCartQuantity(button) {
 document.querySelectorAll(".js-button-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const { productId } = button.dataset;
-    addToCatt(button);
+    addToCart(button);
     updateCartQuantity(button);
   });
 });
