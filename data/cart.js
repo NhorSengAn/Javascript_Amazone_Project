@@ -56,7 +56,7 @@ export function calculateQuantity() {
   return cartQuantity;
 }
 
-export function UpdateQuantity(productId, newQuantity) {
+export function updateQuantity(productId, newQuantity) {
   let matchingItem;
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
