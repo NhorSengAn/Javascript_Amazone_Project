@@ -7,6 +7,12 @@ import {
 import { products } from "../data/products.js";
 import { formatCurrency } from "./untils/money.js";
 
+const today = dayjs();
+
+const deliveryDate = today.add(7, "days");
+
+console.log(deliveryDate.format("ddd, MMM D"));
+
 let cartSummaryHTML = "";
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
@@ -120,7 +126,6 @@ document.querySelectorAll(".js-update-link").forEach((link) => {
     container.classList.add("is-editing-quantity");
   });
 });
-
 
 function saveQuantity(productId) {
   const quantityInput = document.querySelector(
