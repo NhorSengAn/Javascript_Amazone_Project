@@ -73,11 +73,17 @@ export function updateQuantity(productId, newQuantity) {
 
 export function updateDeliveryOption(productId, deliveryOptionId) {
   let matchingItem;
+
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
+
+  if (!matchingItem) {
+    console.log("Product not found:", productId);
+    return;
+  }
 
   matchingItem.deliveryOptionId = deliveryOptionId;
 

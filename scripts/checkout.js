@@ -33,7 +33,9 @@ cart.forEach((cartItem) => {
 
   cartSummaryHTML += `
       <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
-        <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+        <div class="delivery-date">
+          Delivery date: ${getDeliveryDate(cartItem)}
+        </div>
 
         <div class="cart-item-details-grid">
             <img
@@ -70,6 +72,20 @@ cart.forEach((cartItem) => {
     `;
 });
 
+function getDeliveryDate(cartItem) {
+  let selectedOption;
+
+  deliveryOptions.forEach((option) => {
+    if (String(option.id) === String(cartItem.deliveryOptionId)) {
+      selectedOption = option;
+    }
+  });
+
+  const today = dayjs();
+  const deliveryDate = today.add(selectedOption.deliverDays, "days");
+  return deliveryDate.format("dddd, MMMM D");
+}
+
 function deliveryOptionHTML(matchingProduct, cartItem) {
   let html = "";
 
@@ -89,22 +105,20 @@ function deliveryOptionHTML(matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `
-        <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}"
-        data-product-id="${matchingProduct}" 
-        data-delivery-option-id="${deliveryOption.id}">
-        <input
-
-        ${isChecked ? "checked" : ""}
-        type="radio"
-        class="delivery-option-input"
-        name="delivery-option-${matchingProduct.id}"
-        value="${deliveryOption.id}"
-        />
-        <div>
-        <div class="delivery-option-date">${datestring}</div>
-        <div class="delivery-option-price">${priceString} Shipping</div>
-        </div>
-    </div>`;
+          <div class="delivery-option js-delivery-option"  
+            data-product-id="${matchingProduct.id}" 
+            data-delivery-option-id="${deliveryOption.id}">
+          <input
+            ${isChecked ? "checked" : ""}
+            type="radio"
+            class="delivery-option-input"
+            name="delivery-option-${matchingProduct.id}"
+          />
+          <div>
+            <div class="delivery-option-date">${datestring}</div>
+            <div class="delivery-option-price">${priceString} Shipping</div>
+          </div>
+      </div>`;
   });
 
   return html;
