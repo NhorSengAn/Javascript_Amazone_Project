@@ -3,19 +3,16 @@ import {
   removeFromCart,
   calculateQuantity,
   updateQuantity,
+  updateDeliveryOption,
 } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./untils/money.js";
-import { deliveryOption } from "../data/deliveryOptions.js";
-
-import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
+import { deliveryOptions } from "../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-hello();
 const today = dayjs();
 
 const deliveryDate = today.add(7, "days");
 
-console.log(deliveryDate.format("ddd, MMM D"));
 let cartSummaryHTML = "";
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
@@ -23,6 +20,14 @@ cart.forEach((cartItem) => {
   products.forEach((product) => {
     if (product.id === productId) {
       matchingProduct = product;
+    }
+  });
+  const deliveryOptionId = cartItem.deliveryOptionId;
+  let deliveryOption;
+
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      deliveryOption = option;
     }
   });
 
@@ -46,7 +51,8 @@ cart.forEach((cartItem) => {
                 <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
                 Update
                 </span>
-                <input class="quantity-input js-quantity-input js-quantity-input-${matchingProduct.id}" data-product-id="${matchingProduct.id}">                <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">Save</span>
+                <input class="quantity-input js-quantity-input js-quantity-input-${matchingProduct.id}" data-product-id="${matchingProduct.id}">               
+                <span class="save-quantity-link link-primary js-save-link" data-product-id="${matchingProduct.id}">Save</span>
                 <span class="delete-quantity-link link-primary js-delete-link" data-product-id=${matchingProduct.id}>
                 Delete
                 </span>
@@ -65,15 +71,16 @@ cart.forEach((cartItem) => {
 });
 
 function deliveryOptionHTML(matchingProduct, cartItem) {
-  console.log(cartItem);
-
   let html = "";
 
-  deliveryOption.forEach((deliveryOption) => {
+  deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
 
     const deliveryDate = today.add(deliveryOption.deliverDays, "days");
-
+    if (!deliveryOption) {
+      console.log("Delivery option not found:", deliveryOptionId);
+      return;
+    }
     const datestring = deliveryDate.format("ddd, MMM D");
     const priceString =
       deliveryOption.priceCents === 0
@@ -81,8 +88,10 @@ function deliveryOptionHTML(matchingProduct, cartItem) {
         : `${formatCurrency(deliveryOption.priceCents)} - `;
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-    console.log(deliveryOption.id, cartItem.deliveryOptionId, isChecked);
-    html += `<div class="delivery-option">
+    html += `
+        <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}"
+        data-product-id="${matchingProduct}" 
+        data-delivery-option-id="${deliveryOption.id}">
         <input
 
         ${isChecked ? "checked" : ""}
@@ -173,5 +182,12 @@ document.querySelectorAll(".js-quantity-input").forEach((input) => {
       const productId = input.dataset.productId;
       saveQuantity(productId);
     }
+  });
+});
+
+document.querySelectorAll(".js-delivery-option").forEach((element) => {
+  element.addEventListener("click", () => {
+    const { productId, deliveryOptionId } = element.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
   });
 });
