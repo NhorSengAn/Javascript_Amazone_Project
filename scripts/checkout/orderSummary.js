@@ -1,3 +1,5 @@
+import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 import {
   cart,
   removeFromCart,
@@ -7,17 +9,13 @@ import {
   getRenderItem,
 } from "../../data/cart.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
-
 import { products, getProduct } from "../../data/products.js";
-
 import { formatCurrency } from "../untils/money.js";
 
 import {
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
-
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 
 const today = dayjs();
 const deliveryDate = today.add(7, "days");
@@ -134,6 +132,7 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`,
       );
       container.remove();
+      renderCheckoutHeader();
       updateCartQuantity();
       renderPaymentSummary();
     });
@@ -141,8 +140,13 @@ export function renderOrderSummary() {
 
   function updateCartQuantity() {
     const cartQuantity = calculateQuantity();
-    document.querySelector(".js-return-to-home-link").innerHTML =
-      `${cartQuantity} items`;
+    const linkElement = document.querySelector(".js-return-to-home-link");
+
+    if (!linkElement) {
+      return;
+    }
+    linkElement.innerHTML = `${cartQuantity}`;
+    renderPaymentSummary();
   }
   updateCartQuantity();
 
@@ -183,9 +187,12 @@ export function renderOrderSummary() {
   }
 
   document.querySelectorAll(".js-save-link").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
       const productId = link.dataset.productId;
       saveQuantity(productId);
+      renderCheckoutHeader();
+      updateCartQuantity();
       renderPaymentSummary();
     });
   });
@@ -193,8 +200,11 @@ export function renderOrderSummary() {
   document.querySelectorAll(".js-quantity-input").forEach((input) => {
     input.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
+        event.preventDefault();
         const productId = input.dataset.productId;
         saveQuantity(productId);
+        renderCheckoutHeader();
+        updateCartQuantity();
         renderPaymentSummary();
       }
     });
@@ -204,7 +214,8 @@ export function renderOrderSummary() {
     element.addEventListener("click", () => {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
-      renderOrderSummary();
+      renderCheckoutHeader();
+      updateCartQuantity();
       renderPaymentSummary();
     });
   });
