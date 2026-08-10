@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>External Libraries</title>
+  </head>
+  <body>
+    <script type="module">
+      import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+
+      const today = dayjs();
+      const date = today.add(1, "days");
+      console.log(date.format("MMM, D"));
+    </script>
+  </body>
+</html>

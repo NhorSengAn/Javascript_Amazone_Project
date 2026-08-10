@@ -4,6 +4,7 @@ import {
   calculateQuantity,
   updateQuantity,
   updateDeliveryOption,
+  getRenderItem,
 } from "../../data/cart.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
@@ -185,6 +186,7 @@ export function renderOrderSummary() {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;
       saveQuantity(productId);
+      renderPaymentSummary();
     });
   });
 
@@ -193,6 +195,7 @@ export function renderOrderSummary() {
       if (event.key === "Enter") {
         const productId = input.dataset.productId;
         saveQuantity(productId);
+        renderPaymentSummary();
       }
     });
   });
