@@ -5,6 +5,7 @@ import {
   updateQuantity,
   updateDeliveryOption,
 } from "../../data/cart.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 import { products, getProduct } from "../../data/products.js";
 
@@ -132,8 +133,8 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`,
       );
       container.remove();
-
       updateCartQuantity();
+      renderPaymentSummary();
     });
   });
 
@@ -201,6 +202,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }
