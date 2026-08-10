@@ -1,5 +1,3 @@
-import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
-import { renderCheckoutHeader } from "./checkoutHeader.js";
 import {
   cart,
   removeFromCart,
@@ -9,7 +7,9 @@ import {
   getRenderItem,
 } from "../../data/cart.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+
 import { products, getProduct } from "../../data/products.js";
+
 import { formatCurrency } from "../untils/money.js";
 
 import {
@@ -17,8 +17,8 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 
-const today = dayjs();
-const deliveryDate = today.add(7, "days");
+import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -132,7 +132,7 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`,
       );
       container.remove();
-      renderCheckoutHeader();
+      renderCheckoutHeader;
       updateCartQuantity();
       renderPaymentSummary();
     });
@@ -192,7 +192,6 @@ export function renderOrderSummary() {
       const productId = link.dataset.productId;
       saveQuantity(productId);
       renderCheckoutHeader();
-      updateCartQuantity();
       renderPaymentSummary();
     });
   });
@@ -204,7 +203,6 @@ export function renderOrderSummary() {
         const productId = input.dataset.productId;
         saveQuantity(productId);
         renderCheckoutHeader();
-        updateCartQuantity();
         renderPaymentSummary();
       }
     });
@@ -215,7 +213,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderCheckoutHeader();
-      updateCartQuantity();
+      renderOrderSummary();
       renderPaymentSummary();
     });
   });
