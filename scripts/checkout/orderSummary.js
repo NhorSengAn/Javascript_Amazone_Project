@@ -44,7 +44,7 @@ export function renderOrderSummary() {
             <div class="product-name">
                ${matchingProduct.name}
             </div>
-            <div class="product-price">${formatCurrency(matchingProduct.priceCents)}</div>
+            <div class="product-price">$${formatCurrency(matchingProduct.priceCents)}</div>
             <div class="product-quantity">
                 <span> Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span> </span>
                 <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
@@ -94,7 +94,8 @@ export function renderOrderSummary() {
         console.log("Delivery option not found:", deliveryOptionId);
         return;
       }
-      const datestring = deliveryDate.format("ddd, MMM D");
+
+      const dateString = deliveryDate.format("ddd, MMM D");
       const priceString =
         deliveryOption.priceCents === 0
           ? "FREE"
@@ -112,7 +113,7 @@ export function renderOrderSummary() {
             name="delivery-option-${matchingProduct.id}"
           />
           <div>
-            <div class="delivery-option-date">${datestring}</div>
+            <div class="delivery-option-date">${dateString}</div>
             <div class="delivery-option-price">${priceString} Shipping</div>
           </div>
       </div>`;
