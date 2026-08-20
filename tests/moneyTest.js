@@ -5,3 +5,7 @@ if (formatCurrency(1090) === "10.90") {
 } else {
   console.log("Failed");
 }
+
+if(formatCurrency(2000.5) === '20.01') {
+  console.log('passed')
+}
