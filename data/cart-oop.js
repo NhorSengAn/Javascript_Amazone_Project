@@ -42,7 +42,7 @@ function Cart(localStorageKey) {
       const quantity = quantitySector ? Number(quantitySector.value) : 1;
 
       if (matchingItem) {
-        matchingItem.quantity += quantity; // update quantity on that object
+        matchingItem.quantity += quantity;
       } else {
         this.cartItems.push({
           productId,
@@ -116,10 +116,11 @@ function Cart(localStorageKey) {
   return cart;
 }
 
-const cart = Cart("cart-oop"); // using the same function with deference key
+const cart = Cart("cart-oop");
 const businessCart = Cart("cart-business");
 
 cart.loadFromStorage();
+businessCart.loadFromStorage();
 
 console.log(cart);
 console.log(businessCart);
