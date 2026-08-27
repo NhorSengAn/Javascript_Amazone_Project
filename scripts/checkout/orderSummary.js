@@ -8,7 +8,7 @@ import {
 } from "../../data/cart.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
-import { products, getProduct } from "../../data/products.js";
+import { getProduct } from "../../data/products.js";
 
 import { formatCurrency } from "../untils/money.js";
 
@@ -44,7 +44,7 @@ export function renderOrderSummary() {
             <div class="product-name js-product-name-${matchingProduct.id}">
                ${matchingProduct.name}
             </div>
-            <div class="product-price js-product-price-${matchingProduct.id}">$${formatCurrency(matchingProduct.priceCents)}</div>
+            <div class="product-price js-product-price-${matchingProduct.id}">${matchingProduct.getPrice()}</div>
             <div class="
                 product-quantity 
                 js-product-quantity-${matchingProduct.id}">
