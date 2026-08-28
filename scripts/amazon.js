@@ -42,6 +42,8 @@ products.forEach((product) => {
             </select>
           </div>
 
+          ${product.extraInfoHTML()}
+
           <div class="product-spacer"></div>
 
           <div class="added-to-cart js-added-to-cart-${product.id}">
@@ -55,20 +57,7 @@ products.forEach((product) => {
     `;
 });
 
-// console.log(productsHTML);
-
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
-// We're going to use an object to save the timeout ids.
-// The reason we use an object is because each product
-// will have its own timeoutId. So an object lets us
-// save multiple timeout ids for different products.
-// For example:
-// {
-//   'product-id1': 2,
-//   'product-id2': 5,
-//   ...
-// }
-// (2 and 5 are ids that are returned when we call setTimeout).
 
 function updateCartQuantity(button) {
   const { productId } = button.dataset;
