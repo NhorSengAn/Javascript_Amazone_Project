@@ -58,6 +58,27 @@ class Clothing extends Product {
   }
 }
 
+// const date = new Date();
+// console.log(date);
+
+// console.log(date.toLocaleDateString());
+
+function logThis() {
+  console.log(this);
+}
+logThis(); // result will be undefined
+
+logThis.call("hello");
+
+const object3 = {
+  // Arrow function do not chnage the value of this
+  method: () => {
+    console.log(this);
+  },
+};
+
+object3.method(); // reunstil will be undefined
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
