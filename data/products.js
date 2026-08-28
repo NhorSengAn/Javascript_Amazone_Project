@@ -57,6 +57,17 @@ class Clothing extends Product {
     `;
   }
 }
+
+class Appliance extends Product {
+  instructionManuallink;
+  warrantyLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionManuallink = productDetails.instructionManuallink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+}
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
