@@ -57,11 +57,12 @@ class Clothing extends Product {
     `;
   }
 }
+/*
 
-// const date = new Date();
-// console.log(date);
 
-// console.log(date.toLocaleDateString());
+const date = new Date();
+ console.log(date);
+ console.log(date.toLocaleDateString());
 
 function logThis() {
   console.log(this);
@@ -79,6 +80,7 @@ const object3 = {
 
 object3.method(); // reunstil will be undefined
 
+*/
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
