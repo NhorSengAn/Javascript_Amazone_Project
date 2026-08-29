@@ -1,5 +1,4 @@
 import { validDliveryOption } from "./deliveryOptions.js";
-
 export let cart;
 loadFromStorage();
 

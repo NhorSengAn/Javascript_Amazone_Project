@@ -4,7 +4,6 @@ import {
   calculateQuantity,
   updateQuantity,
   updateDeliveryOption,
-  getRenderItem,
 } from "../../data/cart.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 

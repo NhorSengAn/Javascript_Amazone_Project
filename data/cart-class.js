@@ -1,7 +1,7 @@
 import { validDliveryOption } from "./deliveryOptions.js";
 class Cart {
   cartItems;
-  #localStorageKey; // its a priavte its can only be accessed inside the class
+  #localStorageKey;
 
   constructor(localStorageKey) {
     this.#localStorageKey = localStorageKey;
