@@ -102,9 +102,7 @@ export function loadProductsFetch() {
   return promise;
 }
 
-/*
-loadProductsFetch();
-*/
+// loadProductsFetch();
 
 export let products = [];
 export function loadProducts(fun) {
