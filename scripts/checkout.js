@@ -5,7 +5,30 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 // import "../data/cart-class.js";
 // import "../data/car.js";
 // import "../data/backend-practies.js";
-import { loadCarts } from "../data/cart.js";
+// import { loadCarts } from "../data/cart.js";
+
+async function loadPage() {
+  console.log("load page");
+
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
+    loadProducts(() => {
+      resolve("value1");
+      // we can use resolve to wait after finish the next step
+    });
+  });
+
+  renderCheckoutHeader();
+  renderOrderSummary();
+  renderPaymentSummary();
+
+  return "value 2";
+}
+
+loadPage();
+
+/*
 
 Promise.all([
   loadProductsFetch(),
@@ -26,7 +49,7 @@ Promise.all([
   renderPaymentSummary();
 });
 
-/*
+
 
 new Promise((resolve) => {
   loadProducts(() => {
