@@ -8,16 +8,22 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 // import { loadCarts } from "../data/cart.js";
 
 async function loadPage() {
-  console.log("load page");
+  try {
+    console.log("load page");
+    //throw 'error1'
+    await loadProductsFetch();
 
-  await loadProductsFetch();
-
-  await new Promise((resolve) => {
-    loadProducts(() => {
-      resolve("value1");
-      // we can use resolve to wait after finish the next step
+    const value = await new Promise((resolve, reject) => {
+      //throw 'error2'
+      loadProducts(() => {
+        // reject("error3");
+        resolve("value1");
+        // we can use resolve to wait after finish the next step
+      });
     });
-  });
+  } catch (error) {
+    console.log("Unexpected error. Please try again later.");
+  }
 
   renderCheckoutHeader();
   renderOrderSummary();
