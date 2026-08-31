@@ -11,6 +11,13 @@ export function renderPaymentSummary() {
   let shippingPriceCents = 0;
   cart.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
+    if (!product) {
+      console.error(
+        `Product not found for productId: ${cartItem.productId}`,
+        cartItem,
+      );
+      return;
+    }
     productPriceCents += product.priceCents * cartItem.quantity;
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
     shippingPriceCents += deliveryOption.priceCents;
