@@ -25,11 +25,7 @@ export function addToCart(button) {
   const quantitySelector = document.querySelector(
     `.js-quantity-selector-${productId}`,
   );
-  
-  if (!quantitySelector) {
-    console.error(`No quantity selector found for productId: ${productId}`);
-    return;
-  }
+
   const quantity = quantitySelector ? Number(quantitySelector.value) : 1;
   if (matchingItem) {
     matchingItem.quantity += quantity; // update quantity on that object
