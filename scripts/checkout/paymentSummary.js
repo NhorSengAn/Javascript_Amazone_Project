@@ -1,4 +1,4 @@
-import { cart, getRenderItem } from "../../data/cart.js";
+import { cart, getRenderItem, resetCart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../untils/money.js";
@@ -76,6 +76,10 @@ export function renderPaymentSummary() {
   document
     .querySelector(".js-place-order")
     .addEventListener("click", async () => {
+      if (!cart || cart.length === 0) {
+        console.log("Cart is empty. Cnnot place order.");
+        return;
+      }
       try {
         const response = await fetch("https://supersimplebackend.dev/orders", {
           method: "POST",
@@ -86,12 +90,13 @@ export function renderPaymentSummary() {
             cart: cart,
           }),
         });
+        
         const order = await response.json();
         addOrder(order);
       } catch (error) {
         console.log("Unexpect error. Please try again later");
       }
-
+      resetCart();
       window.location.href = "orders.html";
     });
 }

@@ -22,7 +22,10 @@ export function renderCheckoutHeader() {
       </div>
 
       <div class="checkout-header-right-section">
-        <img src="images/icons/checkout-lock-icon.png">
+        <a href="orders.html">
+          <img src="images/icons/checkout-lock-icon.png">
+        </a>
+        
       </div>
     </div>
   `;
